@@ -17,7 +17,7 @@ parameters given as follows:
 
   * [method name] [args 0]...[args n]\n
 
-  * [a Description of the method and its arguments] #
+  * [a Description of the method and its arguments]
 
 
 * StringTests.java
@@ -36,4 +36,4 @@ parameters given as follows:
 
 
 * IntListTests.java (compile with IntList.java NOT IntListStuff.java)
-  * Currently only tests the reversal of an IntList.\n
+  * Currently only tests the reversal of an IntList.
