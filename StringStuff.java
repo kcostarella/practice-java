@@ -81,6 +81,7 @@ public class StringStuff {
   private static void shiftLeft(char[] str, int i, int len) {
     while(i < str.length) {
       str[i - len] = str[i];
+      i += 1;
     }
   }
 
@@ -97,6 +98,54 @@ public class StringStuff {
       }
     }
     return newString.toString();
+  }
+
+  /** Compresses string STR, represented as a char array, in place. */
+  public static void compress(char[] str) {
+    int index = 0;
+    int end = str.length - 1;
+    while (index <= end) {
+      int numEntries = entryCount(str,index, end);
+      if (numEntries > 1) {
+        end = compressAndShift(str, index, end, numEntries);
+        index += 1;
+      }
+      index += 1;
+    }
+  }
+  /** Returns the number of concecutive entries at index I in STR.*/
+  private static int entryCount(char[] str, int i, int end) {
+    char entry = str[i];
+    int num = 0;
+    while (i <= end && str[i] == entry)
+      {
+        num += 1; i += 1;
+      }
+    return num;
+  }
+  /** Compresses str by replacing repitions of str[I] with str[I] + n, where
+  N is the number of repitions. Compresses the string the appropiate amount,
+  N - 2. Returns the int pointing at the end of the compressed str.*/
+  private static int compressAndShift(char[] str, int i, int end, int n) {
+    compress(str,i,n);
+    int shiftAmount = n - 2;
+    nullShiftLeft(str,i + n, end, shiftAmount);
+    return end - shiftAmount;
+  }
+
+  /** replaces n occurences of Str[i] with Str[i] + n */
+  private static void compress(char[] str, int i, int n) {
+   char c_n = ((n + " ").toCharArray())[0];
+   str[i+1] = c_n;
+  }
+
+  /** Shifts all strings starting at I left by N, padding the leftmost N chars
+  with null */
+  private static void nullShiftLeft(char[] str, int i, int end, int n) {
+    shiftLeft(str,i,n);
+    for (int j = end; j > end - n; j -= 1) {
+      str[j] = '\u0000';
+    }
   }
 }
 

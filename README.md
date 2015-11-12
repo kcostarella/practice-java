@@ -15,7 +15,7 @@ parameters given as follows:
 
 * [type]Tests.java
 
-  * [method name] [args 0]...[args n]\n
+  * [method name] [args 0] ... [args n]
 
   * [a Description of the method and its arguments]
 
@@ -25,6 +25,8 @@ parameters given as follows:
     * replaces all occurences of target with source in string
   * permutation s1 s2
     * returns wether or not s1 is a permutation of s2
+  * compress s
+    * compresses a string if needed, ex: "aaabbbccd" -> "a3b3c2d"
 
 
 * ArrayTets.java

@@ -1,4 +1,4 @@
-import static java.lang.System.*;
+  import static java.lang.System.*;
 public class ArrayStuff {
 
   /** Returns a sorted int[] C that is the result of merging (assumingly sorted)

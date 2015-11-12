@@ -13,8 +13,7 @@ public class StringTests {
             replaceTest(args[1], args[2], args[3]);
           }
           else {
-            System.out.println("Replace requires 3 arguments, " +
-              (args.length - 1) + " provided.");
+            wrongNumberArgs(function,4,args.length-1);
           }
           break;
         case "permutation":
@@ -22,14 +21,32 @@ public class StringTests {
             permutationTest(args[1],args[2]);
           }
           else {
-            System.out.println("Permutation requires 2 arguments, " +
-              (args.length - 1) + " provided.");
+            wrongNumberArgs(function,3,args.length-1);
+          }
+          break;
+        case "compress":
+          if (args.length == 2) {
+            compressTest(args[1]);
+          }
+          else {
+            wrongNumberArgs(function,2,args.length - 1);
           }
           break;
         default:
           System.out.println("Unknown Test Function: " + function);
       }
     }
+  }
+
+  private static void wrongNumberArgs(String func, int num, int prov) {
+    System.out.println(func + "require(s) " + num + " args, " + prov +  " provided");
+  }
+
+  private static void compressTest(String s) {
+    char[] c_s = s.toCharArray();
+    System.out.println("Original String:\n\t" + s);
+    StringStuff.compress(c_s);
+    System.out.println("Compressed String:\n\t" + new String(c_s));
   }
 
   /** Prints a Replace Test, where S is the target string, O is the occurence to
