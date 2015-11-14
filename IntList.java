@@ -11,10 +11,20 @@ public class IntList {
   */
   @Override public String toString() {
     StringBuffer string = new StringBuffer();
+    string.append("[ ");
+    string.append(recursiveToString());
+    string.append("]");
+    return string.toString();
+}
+
+  private String recursiveToString() {
+    StringBuffer string = new StringBuffer();
     string.append(this.head);
-    string.append(" ");
+    string.append(", ");
     if (this.tail != null) {
     string.append(this.tail.toString());
+    } else {
+      string.append("null");
     }
     return string.toString();
   }
@@ -23,7 +33,7 @@ public class IntList {
   public IntList tail;
 
   /** Reverses the elements of IntList L */
-  public static IntList intListReverse(IntList l) {
+  public static IntList reverse(IntList l) {
     if (l == null) {
       return null;
     }
@@ -33,7 +43,7 @@ public class IntList {
 
     else {
       //Reverse the rest of the list
-      IntList rest = intListReverse(l.tail);
+      IntList rest = reverse(l.tail);
       //Make tail of Head.tail point to Head. Make Head.tail point to null
       l.tail.tail = l;
       l.tail = null;

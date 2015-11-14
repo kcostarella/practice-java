@@ -10,23 +10,6 @@ public class StringStuff {
     }
   }
 
-  /** Returns wether s1 is indeed a permutation of s2 */
-  public static Boolean isPermutation(String s1, String s2) {
-    //true if both are 0
-    if (s1.isEmpty() && s2.isEmpty()) {
-      return true;
-    }
-    //false if they are different lengths
-    if (s1.length() != s2.length()) {
-      return false;
-    }
-    //If they are the same size, k = s1[0] must be contained in s2
-    char k = s1.charAt(0);
-    //Since remove will NOT remove k from s2 is S2 does not contain k.
-    return isPermutation(remove(k, s1), remove(k, s2));
-  }
-
-
   /** Returns true IFF all chars of A match all chars of STR starting at index
   I in STR */
   private static Boolean foundMatchAtIndex(char[] str, char[] a, int i) {
@@ -85,6 +68,22 @@ public class StringStuff {
     }
   }
 
+   /** Returns wether s1 is a permutation of s2 */
+  public static Boolean isPermutation(String s1, String s2) {
+    //true if both are 0
+    if (s1.isEmpty() && s2.isEmpty()) {
+      return true;
+    }
+    //false if they are different lengths
+    if (s1.length() != s2.length()) {
+      return false;
+    }
+    //If they are the same size, k = s1[0] must be contained in s2
+    char k = s1.charAt(0);
+    //Since remove will NOT remove k from s2 is S2 does not contain k.
+    return isPermutation(remove(k, s1), remove(k, s2));
+  }
+
   /** removes the first occurence of char K from string S */
   private static String remove(char k, String s) {
     StringBuffer newString = new StringBuffer();
@@ -113,6 +112,7 @@ public class StringStuff {
       index += 1;
     }
   }
+
   /** Returns the number of concecutive entries at index I in STR.*/
   private static int entryCount(char[] str, int i, int end) {
     char entry = str[i];
@@ -123,6 +123,7 @@ public class StringStuff {
       }
     return num;
   }
+
   /** Compresses str by replacing repitions of str[I] with str[I] + n, where
   N is the number of repitions. Compresses the string the appropiate amount,
   N - 2. Returns the int pointing at the end of the compressed str.*/
@@ -139,8 +140,8 @@ public class StringStuff {
    str[i+1] = c_n;
   }
 
-  /** Shifts all strings starting at I left by N, padding the leftmost N chars
-  with null */
+  /** Shifts all strings starting at I left by N, padding the leftmost N chars,
+  starting at END with null */
   private static void nullShiftLeft(char[] str, int i, int end, int n) {
     shiftLeft(str,i,n);
     for (int j = end; j > end - n; j -= 1) {
@@ -148,4 +149,3 @@ public class StringStuff {
     }
   }
 }
-
