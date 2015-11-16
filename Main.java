@@ -15,7 +15,7 @@ public class Main {
     matrixTest = new MatrixTest();
     stringTest = new StringTest();
     arrayTest = new ArrayTest();
-
+    listTest = new ListTest();
   }
 
   private static String prompt(String msg) {
@@ -43,6 +43,11 @@ public class Main {
           run_array();
           welcome_back();
           break;
+        case "list":
+          welcome_list();
+          run_list();
+          welcome_back();
+          break;
         case "quit":
           System.exit(0);
           break;
@@ -55,7 +60,7 @@ public class Main {
   }
 
   private static void run_matrix() throws ArrayIndexOutOfBoundsException,
-  NullPointerException {
+  NullPointerException, NumberFormatException {
     while (true) {
       String input = prompt(matrix_prompt);
       String[] args = input.split(" ");
@@ -81,9 +86,35 @@ public class Main {
             break;
 
           case "insert":
-            matrixTest.insert(args[1],Integer.parseInt(args[2]),
-                          Integer.parseInt(args[3]),
-                          Integer.parseInt(args[4]));
+            if (args.length == 2) {
+              String name = args[1];
+              //perform key lookup?
+              matrixTest.show(name);
+              while(true) {
+                input = prompt("inserting into " + name + ": ");
+                args = input.split(" ");
+                if(args[0].equals("back")) {
+                  break;
+                }
+                matrixTest.insert(name,Integer.parseInt(args[0]) - 1,
+                                  Integer.parseInt(args[1]) - 1,
+                                  Integer.parseInt(args[2]));
+
+              }
+            } else {
+              matrixTest.insert(args[1],Integer.parseInt(args[2]) - 1,
+                            Integer.parseInt(args[3]) - 1,
+                            Integer.parseInt(args[4]));
+              }
+            break;
+          case "show":
+            matrixTest.show(args[1]);
+            break;
+          case "transpose":
+            matrixTest.transpose(args[1]);
+            break;
+          case "quit":
+            System.exit(0);
             break;
           default:
             printError();
@@ -93,6 +124,9 @@ public class Main {
         System.out.println("wrong number of inputs");
       }
       catch (NullPointerException e) {
+        System.out.println(e);
+      }
+      catch (NumberFormatException e) {
         System.out.println(e);
       }
     }
@@ -117,6 +151,9 @@ public class Main {
             break;
           case "compress":
               stringTest.compressString(args[1]);
+            break;
+          case "quit":
+            System.exit(0);
             break;
           default:
             printError();
@@ -147,11 +184,57 @@ public class Main {
           case "rotate":
             arrayTest.rotateTest();
             break;
+          case "quit":
+            System.exit(0);
+            break;
           default:
             printError();
         }
       } catch (ArrayIndexOutOfBoundsException e) {
           System.out.println("wrong number of inputs");
+      }
+    }
+  }
+
+  public static void run_list() throws ArrayIndexOutOfBoundsException,
+  NumberFormatException {
+    while (true) {
+      String input = prompt(list_prompt);
+      String[] args = input.split(" ");
+      String arg = args[0];
+      if (arg.equals("back")) {
+          break;
+        }
+      try {
+        switch (arg) {
+          case "createSingle":
+            listTest.createSingle(args[1], Integer.parseInt(args[2]));
+            break;
+          case "createDouble":
+            listTest.createDouble(args[1], Integer.parseInt(args[2]));
+            break;
+          case "append":
+            listTest.append(args[1],args[2]);
+            break;
+          case "push":
+            listTest.push(args[1],args[2]);
+            break;
+          case "delete":
+            listTest.delete(args[1], Integer.parseInt(args[2]));
+            break;
+          case "show":
+            listTest.print(args[1]);
+            break;
+          case "quit":
+            System.exit(0);
+            break;
+          default:
+            printError();
+        }
+      } catch (ArrayIndexOutOfBoundsException e) {
+          System.out.println("wrong number of inputs");
+      } catch (NumberFormatException e) {
+        System.out.println("this function requires ints as arguments");
       }
     }
   }
@@ -180,6 +263,10 @@ public class Main {
     System.out.format(generic_welcome, "Array");
   }
 
+  private static void welcome_list() {
+    System.out.format(generic_welcome, "List");
+}
+
   private static String welcome_message =
   "Welcome to Ko's Tests! To quit, type: 'quit'";
   private static String welcome_back =
@@ -190,8 +277,10 @@ public class Main {
   private static String matrix_prompt = "matrix: ";
   private static String string_prompt = "string: ";
   private static String array_prompt = "array: ";
+  private static String list_prompt = "list: ";
   private static Scanner scan;
   private static MatrixTest matrixTest;
   private static ArrayTest arrayTest;
   private static StringTest stringTest;
+  private static ListTest listTest;
 }

@@ -42,6 +42,9 @@ CLASSES = \
 		ArrayStuff.java \
 		StringStuff.java \
 		Matrix.java \
+		IntList.java \
+		DoubleIntList.java \
+		ListTest.java \
 		MatrixTest.java \
 		StringTest.java \
 		ArrayTest.java \

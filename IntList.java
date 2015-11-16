@@ -6,14 +6,40 @@ public class IntList {
     this.tail = tail;
   }
 
+
+  /** Appends item to this IntList's tail. */
+  public void append(IntList item) {
+    if (this.tail != null) {
+      this.tail.append(item);
+    } else {
+      this.tail = item;
+    }
+  }
+
+  public IntList push(IntList item) {
+    item.tail = this;
+    return item;
+  }
+
+  /** Deletes node at depth, D */
+  public IntList delete(int d) {
+   if (d == 0) {
+      return this.tail;
+    } else if (this.tail == null) {
+      return null;
+    }
+    this.tail = this.tail.delete(d-1);
+    return this;
+  }
+
   /** Returns this IntList as a String. For example:
-  IntList(1, IntList(2, IntList(3, null))) -> 1 2 3
+  IntList(1, IntList(2, IntList(3, null))) -> (1 (2 (3, null)))
   */
   @Override public String toString() {
     StringBuffer string = new StringBuffer();
-    string.append("[ ");
+    string.append("( ");
     string.append(recursiveToString());
-    string.append("]");
+    string.append(" )");
     return string.toString();
 }
 

@@ -101,16 +101,30 @@ public class Matrix {
     return identity;
   }
 
+  /** if A.get(n,m) == 0 set row n and column m = 0.*/
+  public static void setZeroPropigate(Matrix a, int n, int m) {
+    if (a.get(n,m) == 0) {
+      for (int row = 0; row < a.row() ; row += 1 ) { //for each row of A
+        if (row == n) { //if this is the row to be zeroed...
+          for (int col = 0; col < a.col(); col += 1 ) {
+            a.set(row,col,0); //set all entries of this row to 0
+          }
+        } else {
+          a.set(row,m,0); //set just element in column m to be zero
+        }
+      }
+    }
+  }
+
   @Override public String toString() {
     StringBuffer s = new StringBuffer();
     for (int i = 0;i < row ; i += 1) {
-      s.append("| ");
+      s.append("|  ");
       for (int j = 0; j < col; j += 1) {
-        s.append(matrix[i][j] + " ");
+        s.append(matrix[i][j] + "  ");
       }
       s.append("|\n");
     }
     return s.toString();
   }
-
 }

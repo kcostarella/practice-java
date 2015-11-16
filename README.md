@@ -13,8 +13,7 @@ To remove .class files, run the command:
 
 Running:
 
-**$java Main**
+**$ java Main**
 
  prompts interactive testing for the following classes:
-
 StringStuff, ArrayStuff, and Matrices. Additional information on its way.
